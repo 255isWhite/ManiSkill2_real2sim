@@ -64,7 +64,7 @@ class MoveNearInSceneEnv(CustomSceneEnv):
         ret["sim_freq"] = 513
         ret[
             "control_mode"
-        ] = "arm_pd_ee_delta_pose_align_interpolate_by_planner_gripper_pd_joint_target_delta_pos_interpolate_by_planner"
+        ] = "arm_pd_ee_base_pose_align_interpolate_by_planner_gripper_pd_joint_target_delta_pos_interpolate_by_planner" # mark
         ret["scene_name"] = "google_pick_coke_can_1_v4"
         ret["camera_cfgs"] = {"add_segmentation": True}
         ret["rgb_overlay_path"] = str(

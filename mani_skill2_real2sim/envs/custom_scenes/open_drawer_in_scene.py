@@ -8,7 +8,7 @@ from mani_skill2_real2sim import ASSET_DIR
 from mani_skill2_real2sim.utils.registration import register_env
 from mani_skill2_real2sim.utils.sapien_utils import get_entity_by_name
 from transforms3d.euler import euler2quat
-
+from mani_skill2_real2sim.utils.sapien_utils import vectorize_pose
 from .base_env import CustomOtherObjectsInSceneEnv, CustomSceneEnv
 
 
@@ -45,7 +45,7 @@ class OpenDrawerInSceneEnv(CustomSceneEnv):
         ret["sim_freq"] = 513
         ret[
             "control_mode"
-        ] = "arm_pd_ee_delta_pose_align_interpolate_by_planner_gripper_pd_joint_target_delta_pos_interpolate_by_planner"
+        ] = "arm_pd_ee_base_pose_align_interpolate_by_planner_gripper_pd_joint_target_delta_pos_interpolate_by_planner"
         ret["scene_name"] = "dummy_drawer"
         ret["camera_cfgs"] = {"add_segmentation": True}
         ret["rgb_overlay_path"] = str(
@@ -63,6 +63,9 @@ class OpenDrawerInSceneEnv(CustomSceneEnv):
     #     scene_config = super()._get_default_scene_config()
     #     scene_config.enable_pcm = True
     #     return scene_config
+    def _get_obs_extra(self) -> OrderedDict:
+        obs = OrderedDict(tcp_pose=vectorize_pose(self.tcp.pose))
+        return obs
 
     def _initialize_agent(self):
         init_qpos = np.array(

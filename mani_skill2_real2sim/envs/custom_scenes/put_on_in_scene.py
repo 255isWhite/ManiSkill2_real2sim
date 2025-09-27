@@ -166,7 +166,7 @@ class PutOnBridgeInSceneEnv(PutOnInSceneEnv, CustomBridgeObjectsInSceneEnv):
         ret["robot"] = "widowx"
         ret["control_freq"] = 5
         ret["sim_freq"] = 500
-        ret["control_mode"] = "arm_pd_ee_target_delta_pose_align2_gripper_pd_joint_pos"
+        ret["control_mode"] = "arm_pd_ee_target_base_pose_gripper_pd_joint_pos" # mark 
         ret["scene_name"] = "bridge_table_1_v1"
         ret["camera_cfgs"] = {"add_segmentation": True}
         ret["rgb_overlay_path"] = str(

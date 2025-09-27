@@ -191,6 +191,7 @@ class PDEEPoseController(PDEEPosController):
 
     def compute_target_pose(self, prev_ee_pose_at_base, action):
         if self.config.use_delta:
+            print(f"here compute delta")
             delta_pos, delta_rot = action[0:3], action[3:6]
             delta_quat = Rotation.from_rotvec(delta_rot).as_quat()[[3, 0, 1, 2]]
             delta_pose = sapien.Pose(delta_pos, delta_quat)
@@ -221,9 +222,14 @@ class PDEEPoseController(PDEEPosController):
             else:
                 raise NotImplementedError(self.config.frame)
         else:
+            # eular angles transform to quanternion
+            # print(f"here compute no delta")
             assert self.config.frame == "base", self.config.frame
+            # print(f"receive action {action}")
             target_pos, target_rot = action[0:3], action[3:6]
-            target_quat = Rotation.from_rotvec(target_rot).as_quat()[[3, 0, 1, 2]]
+            # target_quat = Rotation.from_rotvec(target_rot).as_quat()[[3, 0, 1, 2]]
+            target_quat = Rotation.from_euler('xyz',target_rot).as_quat()[[3, 0, 1, 2]]
+            # target_quat = action[3:7][[3, 0, 1, 2]]
             target_pose = sapien.Pose(target_pos, target_quat)
 
         return target_pose

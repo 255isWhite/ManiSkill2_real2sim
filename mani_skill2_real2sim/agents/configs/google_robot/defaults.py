@@ -224,6 +224,17 @@ class GoogleRobotDefaultConfig:
             interpolate_planner_jerklim=self.arm_jerk_limit,
             **arm_common_kwargs,
         )
+        arm_pd_ee_base_pose_align_interpolate_by_planner = PDEEPoseControllerConfig(
+            *arm_common_args,
+            frame="base",
+            interpolate=True,
+            use_delta=False,
+            interpolate_by_planner=True,
+            interpolate_planner_vlim=self.arm_vel_limit,
+            interpolate_planner_alim=self.arm_acc_limit,
+            interpolate_planner_jerklim=self.arm_jerk_limit,
+            **arm_common_kwargs,
+        )
         _C["arm"] = dict(
             arm_pd_ee_delta_pose=arm_pd_ee_delta_pose,
             arm_pd_ee_delta_pose_align=arm_pd_ee_delta_pose_align,
@@ -233,6 +244,7 @@ class GoogleRobotDefaultConfig:
             arm_pd_ee_target_delta_pose_align=arm_pd_ee_target_delta_pose_align,
             arm_pd_ee_target_delta_pose_align_interpolate=arm_pd_ee_target_delta_pose_align_interpolate,
             arm_pd_ee_target_delta_pose_align_interpolate_by_planner=arm_pd_ee_target_delta_pose_align_interpolate_by_planner,
+            arm_pd_ee_base_pose_align_interpolate_by_planner=arm_pd_ee_base_pose_align_interpolate_by_planner,
         )
 
         # -------------------------------------------------------------------------- #

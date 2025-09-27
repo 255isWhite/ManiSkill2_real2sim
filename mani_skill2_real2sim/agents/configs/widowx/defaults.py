@@ -131,6 +131,9 @@ class WidowXDefaultConfig:
         arm_pd_ee_target_delta_pose_align2 = PDEEPoseControllerConfig(
             *arm_common_args, frame="ee_align2", use_target=True, **arm_common_kwargs
         )
+        arm_pd_ee_target_base_pose = PDEEPoseControllerConfig(
+            *arm_common_args, frame="base", use_target=True, use_delta=False, **arm_common_kwargs
+        )
         arm_pd_ee_target_delta_pose_align2_interpolate_by_planner = PDEEPoseControllerConfig(
             *arm_common_args,
             frame="ee_align2",
@@ -150,6 +153,7 @@ class WidowXDefaultConfig:
             arm_pd_ee_target_delta_pose_align=arm_pd_ee_target_delta_pose_align,
             arm_pd_ee_target_delta_pose_align2=arm_pd_ee_target_delta_pose_align2,
             arm_pd_ee_target_delta_pose_align2_interpolate_by_planner=arm_pd_ee_target_delta_pose_align2_interpolate_by_planner,
+            arm_pd_ee_target_base_pose=arm_pd_ee_target_base_pose,
         )
 
         # -------------------------------------------------------------------------- #
@@ -282,18 +286,24 @@ class WidowXSinkCameraSetupConfig(WidowXDefaultConfig):
     def cameras(self):
         return [
             CameraConfig(
-                uid="3rd_view_camera",  # the camera used for real evaluation for the sink setup
-                # p=[0.13, 0.27, 1.24],
-                # q=look_at([0, 0, 0], [-1, -0.45, -1.05], [0, 0, 1]).q,
-                # actor_uid=None,
-                p=[-0.00300001, -0.21, 0.39],
-                q=[-0.907313, 0.0782, -0.36434, -0.194741],
-                actor_uid="base_link",
+                # uid="3rd_view_camera",  # the camera used for real evaluation for the sink setup
+                # p=[-0.00300001, -0.21, 0.39],
+                # q=[-0.907313, 0.0782, -0.36434, -0.194741],
+                # actor_uid="base_link",
+                # width=640,
+                # height=480,
+                # fov=1.5,  # ignored if intrinsic is passed
+                # near=0.01,
+                # far=10,
+                # intrinsic = np.array([[623.588, 0, 319.501], [0, 623.588, 239.545], [0, 0, 1]])
+                uid="3rd_view_camera",  # the camera used in the Bridge dataset
+                p=[0.00, -0.16, 0.336],
+                q=[0.909182, -0.0819809, 0.347277, 0.214629],
                 width=640,
                 height=480,
-                fov=1.5,  # ignored if intrinsic is passed
-                near=0.01,
-                far=10,
-                intrinsic = np.array([[623.588, 0, 319.501], [0, 623.588, 239.545], [0, 0, 1]])
+                actor_uid="base_link",
+                intrinsic=np.array(
+                    [[623.588, 0, 319.501], [0, 623.588, 239.545], [0, 0, 1]]
+                ),  # logitech C920
             )
         ]

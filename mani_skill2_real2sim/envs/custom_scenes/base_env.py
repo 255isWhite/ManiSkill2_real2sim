@@ -279,15 +279,17 @@ class CustomSceneEnv(BaseEnv):
             if self.robot_uid in ['widowx', 'widowx_bridge_dataset_camera_setup']:
                 qpos = np.array([-0.01840777,  0.0398835,   0.22242722,  -0.00460194,  1.36524296,  0.00153398, 0.037, 0.037])
             elif self.robot_uid == 'widowx_sink_camera_setup':
-                qpos = np.array([-0.2600599, -0.12875618, 0.04461369, -0.00652761, 1.7033415, -0.26983038, 0.037,
-                                 0.037])
+                qpos = np.array([-0.01840777,  0.0398835,   0.22242722,  -0.00460194,  1.36524296,  0.00153398, 0.037, 0.037])
+                # qpos = np.array([-0.2600599, -0.12875618, 0.04461369, -0.00652761, 1.7033415, -0.26983038, 0.037, 0.037])
             else:
                 raise NotImplementedError(self.robot_uid)
             
             if self.robot_uid in ['widowx', 'widowx_bridge_dataset_camera_setup']:
                 robot_init_height = 0.870
             elif self.robot_uid == 'widowx_sink_camera_setup':
-                robot_init_height = 0.85
+                robot_init_height = 0.870 # aligned setup
+                
+                # robot_init_height = 0.85
             else:
                 raise NotImplementedError(self.robot_uid)
             robot_init_rot_quat = [0, 0, 0, 1]
@@ -314,7 +316,8 @@ class CustomSceneEnv(BaseEnv):
                 if self.robot_uid in ['widowx', 'widowx_bridge_dataset_camera_setup']:
                     init_y = 0.028
                 elif self.robot_uid == 'widowx_sink_camera_setup':
-                    init_y = 0.070
+                    init_y = 0.028
+                   # init_y = 0.070
             else:
                 init_x, init_y = 0.0, 0.0
             robot_init_xyz = [init_x, init_y, robot_init_height]
